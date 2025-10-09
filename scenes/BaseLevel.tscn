@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://dlrfdjcqv8lwh"]
+
+[ext_resource type="MeshLibrary" uid="uid://b5fqsmqmhq4lq" path="res://scenes/MeshLibraries/SpaceLibrary.tres" id="1_h6bwv"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pkduc"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_h6bwv"]
+sky_material = SubResource("ProceduralSkyMaterial_pkduc")
+
+[sub_resource type="Environment" id="Environment_jidjd"]
+background_mode = 2
+sky = SubResource("Sky_h6bwv")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h6bwv"]
+albedo_color = Color(0.26666668, 0.26666668, 0.26666668, 1)
+
+[node name="BaseLevel" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jidjd")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25000003, 0.47236592, -0.54462653, 0.69300246, -0.16392228, 0.71824914, 0.67620087, 0, 29.18193, 22.6157)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+size = Vector3(100, 2, 100)
+material = SubResource("StandardMaterial3D_h6bwv")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.42261824, 0.9063078, 0, -0.9063078, 0.42261824, 0, 16, 9.5)
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("1_h6bwv")
+cell_size = Vector3(4, 4, 4)
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(65535, 65534, 0, 65535, 2, 0, 65531, 65535, 0, 4, 65535, 0, 65531, 65534, 0, 65531, 0, 0, 65531, 2, 0, 65532, 65534, 0, 65532, 2, 0, 65533, 65534, 0, 65533, 2, 0, 65534, 65534, 0, 65534, 2, 0, 0, 65534, 0, 0, 2, 0, 1, 65534, 0, 1, 2, 0, 2, 65534, 0, 2, 2, 0, 3, 65534, 0, 3, 2, 0, 4, 65534, 0, 4, 0, 0, 4, 2, 0, 65535, 65535, 0, 3, 0, 0, 1, 1, 0, 3, 65535, 0, 65535, 0, 0, 65533, 0, 0, 65533, 1, 0, 1, 0, 0)
+}
