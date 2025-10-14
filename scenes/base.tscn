@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://c41uphp6feqye"]
+
+[ext_resource type="Script" uid="uid://cffb6eqfpuqmc" path="res://scripts/Base.cs" id="1_pvqg0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p1x7y"]
+albedo_color = Color(0, 0.77849185, 0.27239656, 1)
+
+[node name="Base" type="Node3D" groups=["Base"]]
+script = ExtResource("1_pvqg0")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.40167236, 0, 0.31974983)
+size = Vector3(2.6038818, 3.4467773, 2.8094215)
+material = SubResource("StandardMaterial3D_p1x7y")
+
+[node name="MaxHP" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.8793828, 0.4761154, 0, -0.4761154, 0.8793828, -0.4402269, 2.9937449, -0.016204596)
+pixel_size = 0.04
+billboard = 1
+text = "5"
+font_size = 50
+outline_size = 25
