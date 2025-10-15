@@ -5,11 +5,28 @@ using System.Text.RegularExpressions;
 public partial class Enemy : PathFollow3D
 {
     [Export(PropertyHint.Range, "0,50,1")] public float speed = 5.0f;
-    [Export(PropertyHint.Range, "0,50,1")] private float health = 3.0f;
+    [Export(PropertyHint.Range, "5,50,1")] private float max_health;
+    private float _currentHealth;
+    public float currentHealth{
+        get {
+            
+           
+            return _currentHealth; 
+            }
+        set
+        {
+            _currentHealth = value;
+            if (_currentHealth <= 0)
+            {
+                QueueFree();
+            }
+        } 
+    }
 
     private Node3D baseNode;
     public override void _Ready()
     {
+        currentHealth = max_health;
         baseNode = GetTree().GetFirstNodeInGroup("Base") as Node3D;
     }
     public override void _Process(double delta)
@@ -19,18 +36,9 @@ public partial class Enemy : PathFollow3D
         if (ProgressRatio >= 1.0f)
         {
             baseNode.Call("TakeDamage", 1);
-            Progress = 0.0f;
+            QueueFree();
         }
     }
-    private void _on_area_3d_area_entered(Area3D area)
-    {
-        if (area is Projectile)
-        {
-            health -= 1;
-            if (health <= 0)
-            {
-                QueueFree();
-            }
-        }
-    }
+    
 }
+

@@ -29,7 +29,7 @@ public partial class Base : Node3D
 
 
     }
-    public void TakeDamage(int damage)
+    private void TakeDamage(int damage)
     {
        
         currentHealth -= damage;
