@@ -4,7 +4,8 @@ using System.Text.RegularExpressions;
 
 public partial class Enemy : PathFollow3D
 {
-    [Export] public float speed = 5.0f;
+    [Export(PropertyHint.Range, "0,50,1")] public float speed = 5.0f;
+    [Export(PropertyHint.Range, "0,50,1")] private float health = 3.0f;
 
     private Node3D baseNode;
     public override void _Ready()
@@ -15,9 +16,21 @@ public partial class Enemy : PathFollow3D
     {
 
         Progress += (float)delta * speed;
-        if (ProgressRatio >= 1.0f){
+        if (ProgressRatio >= 1.0f)
+        {
             baseNode.Call("TakeDamage", 1);
             Progress = 0.0f;
+        }
+    }
+    private void _on_area_3d_area_entered(Area3D area)
+    {
+        if (area is Projectile)
+        {
+            health -= 1;
+            if (health <= 0)
+            {
+                QueueFree();
+            }
         }
     }
 }

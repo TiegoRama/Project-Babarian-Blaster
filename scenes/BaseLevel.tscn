@@ -1,8 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dlrfdjcqv8lwh"]
+[gd_scene load_steps=12 format=3 uid="uid://dlrfdjcqv8lwh"]
 
+[ext_resource type="PackedScene" uid="uid://bc3kxs1as08dd" path="res://scenes/ray_picker_camera.tscn" id="1_5526q"]
 [ext_resource type="MeshLibrary" uid="uid://b5fqsmqmhq4lq" path="res://scenes/MeshLibraries/SpaceLibrary.tres" id="1_h6bwv"]
 [ext_resource type="PackedScene" uid="uid://c0fijs8eofdea" path="res://scenes/Enemy/Enemy.tscn" id="2_jidjd"]
 [ext_resource type="PackedScene" uid="uid://c41uphp6feqye" path="res://scenes/base.tscn" id="3_ip8pd"]
+[ext_resource type="Script" uid="uid://c6sp0jurqgjq7" path="res://scripts/TurretManager.cs" id="5_mel1c"]
+[ext_resource type="PackedScene" uid="uid://be7womneuwbqp" path="res://scenes/Turret/turret.tscn" id="6_c42m3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pkduc"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -41,8 +44,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 size = Vector3(100, 2, 100)
 material = SubResource("StandardMaterial3D_h6bwv")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="RayPickerCamera" parent="." node_paths=PackedStringArray("gridmap", "TurretManager") instance=ExtResource("1_5526q")]
 transform = Transform3D(1, 0, 0, 0, 0.6298492, 0.7767175, 0, -0.7767175, 0.6298492, 0, 16, 14.000702)
+gridmap = NodePath("../GridMap")
+TurretManager = NodePath("../TurretManager")
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("1_h6bwv")
@@ -100,5 +105,26 @@ path_joined = false
 [node name="Enemy" parent="Path3D" instance=ExtResource("2_jidjd")]
 transform = Transform3D(-0.07288986, 0, -0.99732, 0, 1, 0, 0.99732, 0, -0.07288986, -21.341967, 0, 6.0861096)
 
+[node name="Enemy2" parent="Path3D" instance=ExtResource("2_jidjd")]
+transform = Transform3D(-0.0014503144, 0, -0.99997896, 0, 1, 0, 0.99997896, 0, -0.0014503144, -16.346968, 0, 6.295497)
+progress = 5.0
+
+[node name="Enemy3" parent="Path3D" instance=ExtResource("2_jidjd")]
+transform = Transform3D(0.99716043, 0, 0.07504112, 0, 1, 0, -0.07504112, 0, 0.99716043, -13.869955, 0, 3.5309007)
+progress = 10.0
+
+[node name="Enemy4" parent="Path3D" instance=ExtResource("2_jidjd")]
+transform = Transform3D(0.02522194, 0, -0.9996619, 0, 1, 0, 0.9996619, 0, 0.02522194, -9.479646, 0, -2.5203018)
+progress = 20.0
+
+[node name="Enemy5" parent="Path3D" instance=ExtResource("2_jidjd")]
+transform = Transform3D(0.9874559, 0, -0.15776847, 0, 1, 0, 0.15776847, 0, 0.9874559, -14.069628, 0, -1.4584037)
+progress = 15.0
+
 [node name="Base" parent="." instance=ExtResource("3_ip8pd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1.5, 6)
+
+[node name="TurretManager" type="Node3D" parent="." node_paths=PackedStringArray("EnemyPath")]
+script = ExtResource("5_mel1c")
+TurretScene = ExtResource("6_c42m3")
+EnemyPath = NodePath("../Path3D")

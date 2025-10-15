@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cuu0tfh6x2l52"]
+
+[ext_resource type="Script" uid="uid://cdefsax6f7gd0" path="res://scripts/Projectile.cs" id="1_c8fcr"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_6aapk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c8fcr"]
+albedo_color = Color(1, 0.4301492, 0.3164668, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_q3m7n"]
+
+[node name="Projectile" type="Area3D"]
+top_level = true
+script = ExtResource("1_c8fcr")
+speed = 94.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_6aapk")
+surface_material_override/0 = SubResource("StandardMaterial3D_c8fcr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_q3m7n")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="on_timer_timeout"]
