@@ -22,6 +22,7 @@ project/assembly_name="Barbarian Blaster"
 [global_group]
 
 Projectile=""
+Power="Tout les powers"
 
 [input]
 

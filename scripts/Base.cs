@@ -3,7 +3,7 @@ using System;
 
 public partial class Base : Node3D
 {
-    [Export(PropertyHint.Range, "1,1000,1" )] int max_health { get; set; } = 5;
+    [Export(PropertyHint.Range, "1,1000,1" )] public int max_health { get; set; } = 5;
     private Label3D displayhp;
     private float pourcentagehp;
     private int _currentHealth;
@@ -17,9 +17,10 @@ public partial class Base : Node3D
         set
         {
             _currentHealth = value;
-            GD.Print("health was changed");
         }
+            
     }
+    
     
     public override void _Ready()
     {
@@ -27,12 +28,11 @@ public partial class Base : Node3D
         displayhp = GetNode<Label3D>("MaxHP");
         displayhp.Text = $"{currentHealth} /  {max_health}";
 
-
     }
-    private void TakeDamage(int damage)
+    private void TakeDamage(float damage)
     {
        
-        currentHealth -= damage;
+        currentHealth -= (int)damage;
         displayhp.Text = $"{currentHealth} /  {max_health}";
         if (currentHealth <= 0)
         {

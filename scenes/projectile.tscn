@@ -13,7 +13,7 @@ albedo_color = Color(1, 0.4301492, 0.3164668, 1)
 top_level = true
 script = ExtResource("1_c8fcr")
 speed = 100.0
-damage = 6.0
+damage = 55.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_6aapk")

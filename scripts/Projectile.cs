@@ -8,6 +8,15 @@ public partial class Projectile : Area3D
 	public Vector3 direction = Vector3.Forward;
 	[Export(PropertyHint.Range, "0,500,1")] private float speed = 10.0f;
 	[Export(PropertyHint.Range, "1,100,1")] private float damage;
+
+	public float Damage {
+		get { return damage; }
+
+		set
+		{
+			damage = value;
+		}
+	}
 	public override void _Ready()
 	{
 	}
@@ -24,9 +33,9 @@ public partial class Projectile : Area3D
 
 		if (area.IsInGroup("Enemy"))
 		{
-			GD.Print("j'ai tant de dmg ", damage);
 			var enemy = area.GetParent() as Enemy;
-			enemy.currentHealth -= damage;
+			enemy.currentHealth -= Damage;
+			
 
 			QueueFree();
 

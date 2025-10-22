@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://omr6t5gnhdfw"]
+
+[ext_resource type="Script" uid="uid://cgrdflpvj5o6y" path="res://scripts/Power.cs" id="1_pqlwn"]
+
+[node name="Power" type="Node3D" groups=["Power"]]
+script = ExtResource("1_pqlwn")

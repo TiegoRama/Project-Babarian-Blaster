@@ -1,7 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dfxmwc8vvqgyr"]
+[gd_scene load_steps=9 format=3 uid="uid://dfxmwc8vvqgyr"]
+
+[ext_resource type="PackedScene" uid="uid://blhqny0ngqlpl" path="res://assets/Tree.glb" id="1_vid0m"]
+[ext_resource type="PackedScene" uid="uid://cli32qj27en4q" path="res://assets/Rocks.glb" id="2_hxyhs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tkkha"]
-albedo_color = Color(0.74138474, 0.7413847, 0.74138457, 1)
+blend_mode = 1
+albedo_color = Color(0.2520276, 0.2520277, 0.25202748, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_tkkha"]
 material = SubResource("StandardMaterial3D_tkkha")
@@ -11,7 +15,8 @@ size = Vector3(4, 0.1, 4)
 data = PackedVector3Array(-2, 0.049999997, 2, 2, 0.049999997, 2, -2, -0.049999997, 2, 2, 0.049999997, 2, 2, -0.049999997, 2, -2, -0.049999997, 2, 2, 0.049999997, -2, -2, 0.049999997, -2, 2, -0.049999997, -2, -2, 0.049999997, -2, -2, -0.049999997, -2, 2, -0.049999997, -2, 2, 0.049999997, 2, 2, 0.049999997, -2, 2, -0.049999997, 2, 2, 0.049999997, -2, 2, -0.049999997, -2, 2, -0.049999997, 2, -2, 0.049999997, -2, -2, 0.049999997, 2, -2, -0.049999997, -2, -2, 0.049999997, 2, -2, -0.049999997, 2, -2, -0.049999997, -2, 2, 0.049999997, 2, -2, 0.049999997, 2, 2, 0.049999997, -2, -2, 0.049999997, 2, -2, 0.049999997, -2, 2, 0.049999997, -2, -2, -0.049999997, 2, 2, -0.049999997, 2, -2, -0.049999997, -2, 2, -0.049999997, 2, 2, -0.049999997, -2, -2, -0.049999997, -2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ttt4f"]
-albedo_color = Color(1, 0.13333334, 0.007843138, 1)
+transparency = 1
+albedo_color = Color(1, 0.13333334, 0.007843138, 0)
 
 [sub_resource type="BoxMesh" id="BoxMesh_vid0m"]
 material = SubResource("StandardMaterial3D_ttt4f")
@@ -37,3 +42,7 @@ mesh = SubResource("BoxMesh_vid0m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TurretBase/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_tkkha")
+
+[node name="Tree" parent="." instance=ExtResource("1_vid0m")]
+
+[node name="Rocks" parent="." instance=ExtResource("2_hxyhs")]

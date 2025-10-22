@@ -11,7 +11,7 @@ public partial class TurretManager : Node3D
     {
         
     }
-    
+
     public void BuildTurret(Vector3 TurretPosition)
     {
         var NewTurret = TurretScene.Instantiate<Turret>();
@@ -20,6 +20,7 @@ public partial class TurretManager : Node3D
         NewTurret.EnemyPath = EnemyPath;
     }
 
+    
 
 
 
