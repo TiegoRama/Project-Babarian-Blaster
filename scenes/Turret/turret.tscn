@@ -45,7 +45,6 @@ _data = {
 [node name="Turret" type="Node3D"]
 script = ExtResource("1_efkmd")
 projectileScene = ExtResource("1_ksj20")
-TurretRange = 40.0
 
 [node name="TurretBase" type="Node3D" parent="."]
 

@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtkgo11u38fw1"]
+
+[ext_resource type="Script" uid="uid://dktm6yuumdxgn" path="res://scripts/Bank.cs" id="1_rjesy"]
+
+[sub_resource type="SystemFont" id="SystemFont_c42m3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_p6x1w"]
+font = SubResource("SystemFont_c42m3")
+font_size = 64
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Bank" type="MarginContainer" groups=["Bank"]]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+script = ExtResource("1_rjesy")
+startingGold = 500
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "feur "
+label_settings = SubResource("LabelSettings_p6x1w")

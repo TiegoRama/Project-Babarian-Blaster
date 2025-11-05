@@ -31,13 +31,13 @@ public partial class Base : Node3D
     }
     private void TakeDamage(float damage)
     {
-       
+
         currentHealth -= (int)damage;
         displayhp.Text = $"{currentHealth} /  {max_health}";
         if (currentHealth <= 0)
         {
             GetTree().ReloadCurrentScene();
         }
-        
+
     }
 }

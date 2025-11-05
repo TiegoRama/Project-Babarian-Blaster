@@ -45,12 +45,12 @@ public partial class Enemy : PathFollow3D
     public override void _Ready()
     {
         currentHealth = maxHealth;
-        baseNode = GetTree().GetFirstNodeInGroup("Base") as Node3D;
-        power = GetTree().GetFirstNodeInGroup("Power") as Power;
-    }
+        baseNode = GetTree().GetFirstNodeInGroup("Base") as MeshInstance3D;
+        power = GetTree().GetFirstNodeInGroup("Power") as Power;    }
     public override void _Process(double delta)
     {
         Progress += (float)delta * speed;
+
         if (ProgressRatio >= 1.0f)
         {
             baseNode.Call("TakeDamage", damage);
@@ -60,14 +60,6 @@ public partial class Enemy : PathFollow3D
 
     private void Drop()
     {
-  
-            Random rnd = new Random();
-            int chance = rnd.Next(0, 100);
-            if (chance < 99)
-
-        {
-            power.IncreaseDamage();
-        }
-
+        power.RandomLoot(GlobalPosition);
     }
 }

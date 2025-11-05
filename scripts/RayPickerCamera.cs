@@ -8,11 +8,11 @@ public partial class RayPickerCamera : Camera3D
     private RayCast3D ray_cast;
     [Export] private GridMap gridmap;
     [Export] private Node3D TurretManager;
-    [Export] private int turretCost = 100;
+     [Export(PropertyHint.Range, "1, 500, 1")]private float turretCost = 100.0f;
 
     private Projectile projectile;
 
-    [Export] private int UpgradeTurretCost = 5;
+    [Export(PropertyHint.Range, "1, 100, 1")] private float UpgradeTurretCost = 5.0f;
     private Bank bank;
     public override void _Ready()
 
@@ -44,7 +44,7 @@ public partial class RayPickerCamera : Camera3D
                         gridmap.SetCellItem(cell, 1);
                         Vector3 tilePosition = gridmap.MapToLocal(cell);
                         TurretManager.Call("BuildTurret", tilePosition);
-                        bank.Gold -= turretCost;
+                        bank.Gold -= (int)turretCost;
                     }
                 }
 
@@ -58,9 +58,9 @@ public partial class RayPickerCamera : Camera3D
                     {
                         Vector3 tilePosition = gridmap.MapToLocal(cell);
                         Turret turretToUpgrade = FindTurretAtPosition(tilePosition);
-                        bank.Gold -= UpgradeTurretCost;
+                        bank.Gold -= (int)UpgradeTurretCost;
                         turretToUpgrade.UpgradeTurretDamage();
-                        
+
 
                     }
 

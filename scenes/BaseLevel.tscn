@@ -1,13 +1,12 @@
-[gd_scene load_steps=20 format=3 uid="uid://dlrfdjcqv8lwh"]
+[gd_scene load_steps=17 format=3 uid="uid://dlrfdjcqv8lwh"]
 
 [ext_resource type="PackedScene" uid="uid://bc3kxs1as08dd" path="res://scenes/ray_picker_camera.tscn" id="1_5526q"]
 [ext_resource type="MeshLibrary" uid="uid://b5fqsmqmhq4lq" path="res://scenes/MeshLibraries/SpaceLibrary.tres" id="1_h6bwv"]
 [ext_resource type="PackedScene" uid="uid://c0fijs8eofdea" path="res://scenes/Enemy/Enemy.tscn" id="2_jidjd"]
 [ext_resource type="Script" uid="uid://c1dvydbleae74" path="res://scripts/EnemyPath.cs" id="3_c42m3"]
 [ext_resource type="PackedScene" uid="uid://c41uphp6feqye" path="res://scenes/base.tscn" id="3_ip8pd"]
-[ext_resource type="Script" uid="uid://c6sp0jurqgjq7" path="res://scripts/TurretManager.cs" id="5_mel1c"]
-[ext_resource type="PackedScene" uid="uid://be7womneuwbqp" path="res://scenes/Turret/turret.tscn" id="6_c42m3"]
-[ext_resource type="Script" uid="uid://dktm6yuumdxgn" path="res://scripts/Bank.cs" id="8_p6x1w"]
+[ext_resource type="PackedScene" uid="uid://xv437uku08o" path="res://scenes/turret_manager.tscn" id="6_h5t2n"]
+[ext_resource type="PackedScene" uid="uid://dtkgo11u38fw1" path="res://scenes/bank.tscn" id="7_h5t2n"]
 [ext_resource type="PackedScene" uid="uid://vf8pk0il1ous" path="res://scenes/DifficultyManager.tscn" id="9_64vxc"]
 [ext_resource type="PackedScene" uid="uid://pqxikt5hs1mp" path="res://scenes/victory_layer.tscn" id="10_h5t2n"]
 [ext_resource type="PackedScene" uid="uid://omr6t5gnhdfw" path="res://scenes/Power.tscn" id="11_bgxm0"]
@@ -38,14 +37,6 @@ point_count = 10
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h5t2n"]
 albedo_color = Color(0.53959215, 0.2973869, 0.012446805, 1)
 
-[sub_resource type="SystemFont" id="SystemFont_c42m3"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_p6x1w"]
-font = SubResource("SystemFont_c42m3")
-font_size = 64
-outline_size = 16
-outline_color = Color(0, 0, 0, 1)
-
 [node name="BaseLevel" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -62,10 +53,10 @@ size = Vector3(186.6835, 2, 182.03273)
 material = SubResource("StandardMaterial3D_h6bwv")
 
 [node name="RayPickerCamera" parent="." node_paths=PackedStringArray("gridmap", "TurretManager") instance=ExtResource("1_5526q")]
-transform = Transform3D(1, 0, 0, 0, 0.6298492, 0.7767175, 0, -0.7767175, 0.6298492, 0, 16, 14.000702)
+transform = Transform3D(1, 0, 0, 0, 0.4441035, 0.8959755, 0, -0.8959755, 0.4441035, 0, 23.073534, 14.000702)
 gridmap = NodePath("../GridMap")
 TurretManager = NodePath("../TurretManager")
-turretCost = 1
+UpgradeTurretCost = 10.0
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("1_h6bwv")
@@ -134,36 +125,15 @@ autostart = true
 
 [node name="Base" parent="." instance=ExtResource("3_ip8pd")]
 transform = Transform3D(0.04487481, 0, -0.9989926, 0, 1, 0, 0.9989926, 0, 0.04487481, 17.70513, -0.07647002, 6)
-max_health = 800
+max_health = 20
 
-[node name="TurretManager" type="Node3D" parent="." node_paths=PackedStringArray("EnemyPath")]
-script = ExtResource("5_mel1c")
-TurretScene = ExtResource("6_c42m3")
+[node name="TurretManager" parent="." node_paths=PackedStringArray("EnemyPath") instance=ExtResource("6_h5t2n")]
 EnemyPath = NodePath("../EnemyPath")
 
-[node name="Bank" type="MarginContainer" parent="." groups=["Bank"]]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-script = ExtResource("8_p6x1w")
-startingGold = 20
-
-[node name="Label" type="Label" parent="Bank"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-text = "feur "
-label_settings = SubResource("LabelSettings_p6x1w")
+[node name="Bank" parent="." instance=ExtResource("7_h5t2n")]
 
 [node name="DifficultyManager" parent="." instance=ExtResource("9_64vxc")]
-gameLenght = 30.0
+gameLenght = 60.0
 
 [node name="VictoryLayer" parent="." instance=ExtResource("10_h5t2n")]
 visible = false

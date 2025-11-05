@@ -1,6 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://omr6t5gnhdfw"]
+[gd_scene load_steps=5 format=3 uid="uid://omr6t5gnhdfw"]
 
 [ext_resource type="Script" uid="uid://cgrdflpvj5o6y" path="res://scripts/Power.cs" id="1_pqlwn"]
+[ext_resource type="Texture2D" uid="uid://drttagk3q4ov8" path="res://icon.svg" id="2_tlv3d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tlv3d"]
+cull_mode = 2
+albedo_texture = ExtResource("2_tlv3d")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_r80xx"]
+material = SubResource("StandardMaterial3D_tlv3d")
+size = Vector2(3, 3)
 
 [node name="Power" type="Node3D" groups=["Power"]]
 script = ExtResource("1_pqlwn")
+
+[node name="DamageUPPP" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 1.9106855e-15, -1, 1, -4.371139e-08, -4.371139e-08, 0, 2, 0)
+visible = false
+mesh = SubResource("PlaneMesh_r80xx")

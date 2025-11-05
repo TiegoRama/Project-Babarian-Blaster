@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dfxmwc8vvqgyr"]
+[gd_scene load_steps=10 format=3 uid="uid://dfxmwc8vvqgyr"]
 
 [ext_resource type="PackedScene" uid="uid://blhqny0ngqlpl" path="res://assets/Tree.glb" id="1_vid0m"]
 [ext_resource type="PackedScene" uid="uid://cli32qj27en4q" path="res://assets/Rocks.glb" id="2_hxyhs"]
+[ext_resource type="PackedScene" uid="uid://c41uphp6feqye" path="res://scenes/base.tscn" id="3_hxyhs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tkkha"]
 blend_mode = 1
@@ -44,5 +45,9 @@ mesh = SubResource("BoxMesh_vid0m")
 shape = SubResource("ConcavePolygonShape3D_tkkha")
 
 [node name="Tree" parent="." instance=ExtResource("1_vid0m")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="Rocks" parent="." instance=ExtResource("2_hxyhs")]
+
+[node name="Base" parent="." instance=ExtResource("3_hxyhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62513137, 0)

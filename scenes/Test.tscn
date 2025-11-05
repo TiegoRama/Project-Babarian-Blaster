@@ -1,0 +1,99 @@
+[gd_scene load_steps=17 format=3 uid="uid://c5kffc686jn1n"]
+
+[ext_resource type="Script" uid="uid://7se2fln7ynk6" path="res://scripts/GenerationTest.cs" id="1_w8un3"]
+[ext_resource type="MeshLibrary" uid="uid://8el1rqx3mcqe" path="res://scenes/MeshLibraries/Test4.tres" id="2_fu3ou"]
+[ext_resource type="PackedScene" uid="uid://bc3kxs1as08dd" path="res://scenes/ray_picker_camera.tscn" id="3_0d6la"]
+[ext_resource type="Script" uid="uid://bw28plbso8teu" path="res://scripts/EnemyPathTest.cs" id="3_jbd4l"]
+[ext_resource type="PackedScene" uid="uid://xv437uku08o" path="res://scenes/turret_manager.tscn" id="4_di7wo"]
+[ext_resource type="PackedScene" uid="uid://c0fijs8eofdea" path="res://scenes/Enemy/Enemy.tscn" id="4_fu3ou"]
+[ext_resource type="PackedScene" uid="uid://dtkgo11u38fw1" path="res://scenes/bank.tscn" id="5_iscks"]
+[ext_resource type="PackedScene" uid="uid://vf8pk0il1ous" path="res://scenes/DifficultyManager.tscn" id="8_bhwsq"]
+[ext_resource type="PackedScene" uid="uid://pqxikt5hs1mp" path="res://scenes/victory_layer.tscn" id="9_xftjw"]
+[ext_resource type="PackedScene" uid="uid://omr6t5gnhdfw" path="res://scenes/Power.tscn" id="10_fu3ou"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w8un3"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_0d6la"]
+sky_material = SubResource("ProceduralSkyMaterial_w8un3")
+
+[sub_resource type="Environment" id="Environment_di7wo"]
+background_mode = 2
+sky = SubResource("Sky_0d6la")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="Curve3D" id="Curve3D_w8un3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0d6la"]
+albedo_color = Color(1, 0, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w8un3"]
+
+[node name="Node3D" type="Node3D" node_paths=PackedStringArray("gridMap", "enemyPath")]
+script = ExtResource("1_w8un3")
+width = -8
+depth = -8
+gridMap = NodePath("GridMap")
+enemyPath = NodePath("EnemyPathTest")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_di7wo")
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("2_fu3ou")
+cell_size = Vector3(4, 0.1, 4)
+metadata/_editor_floor_ = Vector3(0, -1, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 36.761078, 0)
+
+[node name="EnemyPathTest" type="Path3D" parent="." node_paths=PackedStringArray("difficultyManager", "victoryScreen")]
+curve = SubResource("Curve3D_w8un3")
+script = ExtResource("3_jbd4l")
+enemyScene = ExtResource("4_fu3ou")
+difficultyManager = NodePath("../DifficultyManager")
+victoryScreen = NodePath("../VictoryLayer")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="EnemyPathTest"]
+polygon = PackedVector2Array(0, 0, 0, 0.1, 1, 0.1, 1, 0.1)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = SubResource("StandardMaterial3D_0d6la")
+
+[node name="Timer" type="Timer" parent="EnemyPathTest"]
+wait_time = 2.0
+autostart = true
+
+[node name="Floor" type="CSGBox3D" parent="."]
+material_override = SubResource("StandardMaterial3D_w8un3")
+size = Vector3(64, 0, 64)
+
+[node name="RayPickerCamera" parent="." node_paths=PackedStringArray("gridmap", "TurretManager") instance=ExtResource("3_0d6la")]
+transform = Transform3D(1, 0, 0, 0, 0.2968582, 0.95492154, 0, -0.95492154, 0.2968582, 0, 35.70448, 19.48058)
+gridmap = NodePath("../GridMap")
+TurretManager = NodePath("../TurretManager")
+
+[node name="TurretManager" parent="." node_paths=PackedStringArray("EnemyPath") instance=ExtResource("4_di7wo")]
+EnemyPath = NodePath("../EnemyPathTest")
+
+[node name="Bank" parent="." instance=ExtResource("5_iscks")]
+
+[node name="DifficultyManager" parent="." instance=ExtResource("8_bhwsq")]
+
+[node name="VictoryLayer" parent="." instance=ExtResource("9_xftjw")]
+visible = false
+
+[node name="Power" parent="." instance=ExtResource("10_fu3ou")]
+
+[connection signal="timeout" from="EnemyPathTest/Timer" to="EnemyPathTest" method="SpawnEnemy"]

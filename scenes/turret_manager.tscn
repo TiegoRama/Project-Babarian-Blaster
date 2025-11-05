@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://xv437uku08o"]
+
+[ext_resource type="Script" uid="uid://c6sp0jurqgjq7" path="res://scripts/TurretManager.cs" id="1_hchfe"]
+[ext_resource type="PackedScene" uid="uid://be7womneuwbqp" path="res://scenes/Turret/turret.tscn" id="2_upl01"]
+
+[node name="TurretManager" type="Node3D" node_paths=PackedStringArray("EnemyPath")]
+script = ExtResource("1_hchfe")
+TurretScene = ExtResource("2_upl01")
+EnemyPath = NodePath("")
